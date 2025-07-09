@@ -1,6 +1,6 @@
 # SMARTS Composer
 
-[![Haskell CI](https://github.com/username/smarts-composer/actions/workflows/haskell.yml/badge.svg)](https://github.com/username/smarts-composer/actions/workflows/haskell.yml)
+[![Haskell CI](https://github.com/username/smarts-composer/actions/workflows/haskell-ci.yml/badge.svg)](https://github.com/username/smarts-composer/actions/workflows/haskell-ci.yml)
 
 An exploration in the ability of Haskell to work with cheminformatics.
 
@@ -109,24 +109,6 @@ Run the test suite with:
 ```bash
 cabal test
 ```
-
-### Continuous Integration
-
-This project uses GitHub Actions for continuous integration. The CI pipeline:
-
-- Builds the project on Ubuntu with multiple GHC versions (9.6.7, 9.4.8, 9.2.8)
-- Runs all tests to ensure compatibility across different compiler versions
-- Caches dependencies to speed up builds
-
-The CI workflow runs automatically on:
-- Every push to the main/master branch
-- Every pull request targeting the main/master branch
-
-You can see the build status at the top of this README.
-
-The workflow configuration can be found in `.github/workflows/haskell-ci.yml`.
-
-To check the status of the latest build, click on the CI badge at the top of this README.
 
 ## License
 

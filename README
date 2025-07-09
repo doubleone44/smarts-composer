@@ -1,0 +1,133 @@
+# SMARTS Composer
+
+[![Haskell CI](https://github.com/username/smarts-composer/actions/workflows/haskell.yml/badge.svg)](https://github.com/username/smarts-composer/actions/workflows/haskell.yml)
+
+An exploration in the ability of Haskell to work with cheminformatics.
+
+A work-in-progress Haskell library for parsing, validating, and working with SMARTS (SMiles ARbitrary Target Specification) patterns, commonly used in cheminformatics for substructure searching and molecular pattern matching.
+
+## Overview
+
+SMARTS Composer provides:
+
+1. **Parsing**: A robust parser for SMARTS patterns using Parsec
+2. **AST**: Abstract Syntax Tree representation of SMARTS expressions
+3. **Graph conversion**: Convert SMARTS patterns to graph representations
+4. **Validation**: Validate SMARTS syntax and semantics
+5. WIP: **Composition**: Compose SMARTS patterns from smaller components.
+
+## Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/username/smarts-composer.git
+cd smarts-composer
+
+# Build with Cabal
+cabal build
+
+# Install
+cabal install
+```
+
+## Usage
+
+### As a Library
+
+```haskell
+import Data.AST
+import Parser.Smarts
+import Semantic.Graph
+
+-- Parse a SMARTS pattern
+let result = parseSmarts "C1CCC1"
+case result of
+  Left err -> putStrLn $ "Parse error: " ++ show err
+  Right parsed -> putStrLn $ "Successfully parsed: " ++ show parsed
+
+-- Convert to graph representation
+import Data.Graph.Inductive.PatriciaTree (Gr)
+let graphResult = parseToGraphs "C1CCC1" :: Either ParseError [Gr AtomicEnvironment BondEnvironment]
+case graphResult of
+  Left err -> putStrLn $ "Error: " ++ show err
+  Right graphs -> putStrLn $ "Graph representation created"
+```
+
+### Command-line Tool
+
+The package includes a simple command-line tool to parse and validate SMARTS patterns:
+
+```bash
+# Run the executable
+cabal run smarts-composer
+
+# Enter your SMARTS pattern when prompted
+Enter a SMARTS string to parse:
+C1CCC1
+```
+
+## SMARTS Syntax Support
+
+The library supports the core SMARTS syntax including:
+
+- **Atoms**: Element symbols (C, N, O, etc.), aromatic atoms (c, n, o), wildcards (*)
+- **Bonds**: Single (-), double (=), triple (#), aromatic (:), any (~)
+- **Logical operators**: AND (&), OR (,), NOT (!)
+- **Atomic properties**:
+  - Charge: [C+], [O-]
+  - Isotope: [13C]
+  - Hydrogens: [H1], [h2]
+  - Connectivity: [X3], [x0]
+  - Rings: [R2], [r5]
+  - Chirality: [@], [@@]
+- **Recursive SMARTS**: [$(...)]
+- **Ring closures**: C1CCCC1
+
+## Architecture
+
+The project is structured into several modules:
+
+- `Data.AST`: Abstract Syntax Tree definitions
+- `Parser.*`: SMARTS parsing components
+  - `Parser.Atom`: Atom-specific parsers
+  - `Parser.Bond`: Bond-specific parsers
+  - `Parser.Ring`: Ring notation parsers
+  - `Parser.Logical`: Logical expressions parsers
+- `Semantic.Graph`: Graph construction and manipulation
+
+## Development
+
+### Prerequisites
+
+- GHC (Glasgow Haskell Compiler) 9.6.x or later
+- Cabal 3.x
+
+### Testing
+
+Run the test suite with:
+
+```bash
+cabal test
+```
+
+### Continuous Integration
+
+This project uses GitHub Actions for continuous integration. The CI pipeline:
+
+- Builds the project on Ubuntu with multiple GHC versions (9.6.7, 9.4.8, 9.2.8)
+- Runs all tests to ensure compatibility across different compiler versions
+- Caches dependencies to speed up builds
+
+The CI workflow runs automatically on:
+- Every push to the main/master branch
+- Every pull request targeting the main/master branch
+
+You can see the build status at the top of this README.
+
+The workflow configuration can be found in `.github/workflows/haskell-ci.yml`.
+
+To check the status of the latest build, click on the CI badge at the top of this README.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

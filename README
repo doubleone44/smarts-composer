@@ -1,6 +1,6 @@
 # SMARTS Composer
 
-[![Haskell CI](https://github.com/username/smarts-composer/actions/workflows/haskell-ci.yml/badge.svg)](https://github.com/username/smarts-composer/actions/workflows/haskell-ci.yml)
+[![Haskell CI](https://github.com/username/smarts-composer/actions/workflows/haskell-ci.yml/badge.svg)](https://github.com/username/smarts-composer/actions/workflows/haskell-ci.yml)]
 
 An exploration in the ability of Haskell to work with cheminformatics.
 
